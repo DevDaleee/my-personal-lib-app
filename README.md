@@ -48,7 +48,7 @@ App Flutter ──HTTP/JSON──▶ Gateway (Nginx) ──▶ /auth, /books →
                                             └─▶ /stats       → stats-service
 ```
 
-O app fala somente com o gateway. A URL da API não fica fixa no código: ela é passada com `--dart-define=API_BASE_URL=...`.
+O app fala somente com o gateway. A URL da API não fica fixa no código: ela vem da variável `API_BASE_URL` do arquivo `.env` (lido com `flutter_dotenv`).
 
 | Ambiente | `API_BASE_URL` |
 |---|---|
@@ -82,27 +82,37 @@ cd my-personal-lib
 docker compose up -d
 ```
 
-Rode o app no Chrome:
+Crie o `.env` a partir do exemplo e ajuste o `API_BASE_URL` (veja a tabela em [Arquitetura](#architecture)):
 
 ```bash
 cd ../my-personal-lib-app
-flutter pub get
-flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:8080
+cp .env.example .env
 ```
 
-No emulador Android:
+Rode o app no Chrome (com `API_BASE_URL=http://localhost:8080` no `.env`):
 
 ```bash
-flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8080
+flutter pub get
+flutter run -d chrome
+```
+
+No emulador Android, troque o `.env` para `API_BASE_URL=http://10.0.2.2:8080` e rode:
+
+```bash
+flutter run
 ```
 
 <h3>Build web</h3>
 
+Com `API_BASE_URL=/` no `.env`:
+
 ```bash
-flutter build web --dart-define=API_BASE_URL=/
+flutter build web
 ```
 
 O resultado fica em `build/web`, que o gateway do back-end serve em `/`.
+
+> O `.env` vai junto no build e, na web, fica público. Não coloque nada secreto nele.
 
 <h2 id="colab">🤝 Colaboradores</h2>
 
