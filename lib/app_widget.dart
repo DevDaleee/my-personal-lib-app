@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:my_personal_lib_app/pages/router.dart';
 import 'package:my_personal_lib_app/pages/styles/dark_theme.dart';
 import 'package:my_personal_lib_app/pages/styles/light_theme.dart';
@@ -15,7 +14,6 @@ class MainApp extends StatefulWidget {
   @override
   State<MainApp> createState() => _MainAppState();
 }
-
 class _MainAppState extends State<MainApp> {
   SystemUiOverlayStyle _systemUiFor(Brightness platformBrightness) {
     final isDark = platformBrightness == Brightness.dark;

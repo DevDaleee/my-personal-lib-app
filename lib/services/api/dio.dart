@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_personal_lib_app/data/shared.dart';
 import 'package:my_personal_lib_app/services/constants.dart';
@@ -17,7 +18,7 @@ class ApiServices {
   final SecurityStorage securityStorage = GetIt.I.get<SecurityStorage>();
 
   ApiServices(this.dio) {
-    dio.options.baseUrl = "";
+    dio.options.baseUrl = dotenv.get("API_BASE_URL");
     dio.options.connectTimeout = Duration(milliseconds: defaltConnectTimeout);
     dio.options.receiveTimeout = Duration(milliseconds: defaultReceiveTimeout);
 
