@@ -1,4 +1,8 @@
-<h1 align="center" style="font-weight: bold;">Biblioteca Pessoal 📚</h1>
+<p align="center">
+    <img src="assets/logo/logo.svg" alt="Logo da Biblioteca Pessoal" width="120px">
+</p>
+
+<h1 align="center" style="font-weight: bold;">Biblioteca Pessoal</h1>
 
 <p align="center">
  <a href="#tech">Tecnologias</a> •
