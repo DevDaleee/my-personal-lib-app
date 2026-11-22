@@ -46,8 +46,12 @@ abstract class AuthControllerBase with Store {
         _submissionFailure("Erro ao cadastrar", response["error"]);
         return;
       }
-      // O cadastro não devolve token: entra direto com o e-mail e a senha recém-criados.
-      if (context.mounted) await _login(context);
+      // A pessoa entra por conta própria: volta para o login com o e-mail já preenchido.
+      passwordController.clear();
+      rpasswordController.clear();
+      nameController.clear();
+      showToast("Conta criada", "Agora é só entrar com seu e-mail e senha.", ToastificationType.success);
+      if (context.mounted) context.go('/');
     } catch (e) {
       _submissionFailure("Erro ao cadastrar", "Algo deu errado. Tente novamente.");
     } finally {

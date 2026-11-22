@@ -106,19 +106,30 @@ void main() {
       await flushToasts(tester);
     });
 
-    testWidgets('201: sai do cadastro (para a Home já logado ou para o login)', (tester) async {
+    testWidgets('201: volta para o login sem logar sozinho', (tester) async {
       when(() => users.register(any(), any(), any())).thenAnswer((_) async => ok(201, created));
-      when(() => users.login(any(), any())).thenAnswer((_) async => ok(200, {'token': 'jwt.novo', 'user_id': 'u-1'}));
       await tester.pumpWidget(authApp(initialLocation: '/register'));
       await fillRegister(tester);
 
       await _tapButton(tester, 'Criar conta');
 
-      expect(find.text('Criar sua conta'), findsNothing);
-      final atHome = find.text('HOME').evaluate().isNotEmpty;
-      final atLogin = find.text('Acessar estante').evaluate().isNotEmpty;
-      expect(atHome || atLogin, isTrue, reason: 'depois do 201 deve ir para a Home ou para o login');
-      if (atHome) expect(await _savedToken(), 'jwt.novo', reason: 'se foi para a Home, o token do login tem que estar salvo');
+      expect(find.text('Acessar estante'), findsOneWidget);
+      expect(find.text('Conta criada'), findsOneWidget);
+      verifyNever(() => users.login(any(), any()));
+      expect(await _savedToken(), isNull);
+      await flushToasts(tester);
+    });
+
+    testWidgets('201: o e-mail fica preenchido no login e a senha não', (tester) async {
+      when(() => users.register(any(), any(), any())).thenAnswer((_) async => ok(201, created));
+      await tester.pumpWidget(authApp(initialLocation: '/register'));
+      await fillRegister(tester);
+
+      await _tapButton(tester, 'Criar conta');
+
+      String fieldText(int index) => tester.widget<EditableText>(find.byType(EditableText).at(index)).controller.text;
+      expect(fieldText(0), 'clarice@caderno.com.br');
+      expect(fieldText(1), isEmpty);
       await flushToasts(tester);
     });
 
