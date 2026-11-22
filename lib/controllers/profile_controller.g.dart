@@ -111,6 +111,13 @@ mixin _$ProfileController on ProfileControllerBase, Store {
     return _$loadAsyncAction.run(() => super.load());
   }
 
+  late final _$logoutAsyncAction = AsyncAction('ProfileControllerBase.logout', context: context);
+
+  @override
+  Future<void> logout() {
+    return _$logoutAsyncAction.run(() => super.logout());
+  }
+
   @override
   String toString() {
     return '''

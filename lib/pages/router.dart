@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_personal_lib_app/data/shared.dart';
 import 'package:my_personal_lib_app/pages/home/home_page.dart';
 import 'package:my_personal_lib_app/pages/login/login_page.dart';
+import 'package:my_personal_lib_app/pages/profile/profile_page.dart';
 import 'package:my_personal_lib_app/pages/register/register_page.dart';
 
 /// Rotas abertas, que não exigem sessão.
@@ -25,5 +26,6 @@ final router = GoRouter(
     GoRoute(path: '/', builder: (context, state) => const LoginPage()),
     GoRoute(path: '/register', builder: (context, state) => const RegisterPage()),
     GoRoute(path: "/home", builder: (context, state) => const HomePage()),
+    GoRoute(path: '/profile', builder: (context, state) => const ProfilePage()),
   ],
 );

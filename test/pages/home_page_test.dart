@@ -30,6 +30,10 @@ Widget _app() {
         builder: (_, _) => const Scaffold(body: Text('LOGIN')),
       ),
       GoRoute(path: '/home', builder: (_, _) => const HomePage()),
+      GoRoute(
+        path: '/profile',
+        builder: (_, _) => const Scaffold(body: Text('PERFIL')),
+      ),
     ],
   );
   return MaterialApp.router(theme: lightTheme, routerConfig: router);
@@ -127,16 +131,13 @@ void main() {
     expect(find.text('Junior'), findsOneWidget);
   });
 
-  testWidgets('Sair apaga a sessão e volta para o login', (tester) async {
+  testWidgets('o botão Perfil da AppBar abre o perfil', (tester) async {
     await openHome(tester);
 
-    await tester.tap(find.byTooltip('Sair'));
+    await tester.tap(find.byTooltip('Perfil'));
     await tester.pumpAndSettle();
 
-    final prefs = await SharedPreferences.getInstance();
-    expect(prefs.getString(tokenKey), isNull);
-    expect(prefs.getString(entityId), isNull);
-    expect(find.text('LOGIN'), findsOneWidget);
+    expect(find.text('PERFIL'), findsOneWidget);
   });
 
   testWidgets('enquanto busca: mostra o carregando no lugar da estante vazia', (tester) async {

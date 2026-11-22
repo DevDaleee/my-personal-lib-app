@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_personal_lib_app/controllers/library_controller.dart';
-import 'package:my_personal_lib_app/data/shared.dart';
 import 'package:my_personal_lib_app/models/book.dart';
 import 'package:my_personal_lib_app/pages/components/book_tile.dart';
 import 'package:my_personal_lib_app/pages/styles/app_theme.dart';
@@ -32,19 +31,13 @@ class _HomePageState extends State<HomePage> {
     controller.fetchBooks();
   }
 
-  /// "Sair": apaga a sessão do aparelho (não há logout no servidor).
-  Future<void> _logout() async {
-    await SecurityStorage.clearData();
-    if (mounted) context.go('/');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Biblioteca'),
         actions: [
-          _RoundIconButton(icon: Icons.logout, tooltip: 'Sair', onPressed: _logout),
+          _RoundIconButton(icon: Icons.person_outline, tooltip: 'Perfil', onPressed: () => context.push('/profile')),
           const SizedBox(width: 16),
         ],
       ),

@@ -54,6 +54,7 @@ abstract class ProfileControllerBase with Store {
     if (isLoading) return;
     isLoading = true;
     error = null;
+    sessionEnded = false;
     try {
       final results = await Future.wait([
         userServices.getMe(),
@@ -68,6 +69,18 @@ abstract class ProfileControllerBase with Store {
     } finally {
       isLoading = false;
     }
+  }
+
+  /// "Sair": apaga a sessão do aparelho e esquece os dados da conta, para o
+  /// próximo login não ver o perfil nem os livros de quem saiu.
+  @action
+  Future<void> logout() async {
+    await SecurityStorage.clearData();
+    user = null;
+    streak = null;
+    finishedThisYear = null;
+    error = null;
+    library.setBooks([]);
   }
 
   Future<void> _applyUser(Map<String, dynamic> response) async {
