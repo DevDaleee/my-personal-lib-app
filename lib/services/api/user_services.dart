@@ -12,9 +12,6 @@ import 'package:my_personal_lib_app/services/constants.dart';
 class UserServices {
   final ApiServices api = GetIt.I.get<ApiServices>();
 
-  static const _connectionError = 'Não foi possível conectar ao servidor. Verifique sua internet.';
-  static const _unexpectedError = 'Algo deu errado. Tente novamente.';
-
   Future<Map<String, dynamic>> login(String email, String password) {
     return _post('/auth/login', {"email": email, "password": password}, successStatus: 200);
   }
@@ -27,19 +24,19 @@ class UserServices {
     try {
       final response = await api.dio.post("${ApiConstants.basePath}$path", data: body);
       if (response.statusCode == successStatus) return _result(response.statusCode, data: response.data);
-      return _result(response.statusCode, error: _unexpectedError);
+      return _result(response.statusCode, error: ApiErrors.unexpectedError);
     } on DioException catch (e) {
       final response = e.response;
       // Sem resposta: o servidor não foi alcançado.
-      if (response == null) return _result(null, error: _connectionError);
+      if (response == null) return _result(null, error: ApiErrors.connectionError);
       // A API manda {"error": "mensagem em português"}, pronta para o usuário.
       final data = response.data;
-      final message = data is Map && data["error"] is String ? data["error"] as String : _unexpectedError;
+      final message = data is Map && data["error"] is String ? data["error"] as String : ApiErrors.unexpectedError;
       return _result(response.statusCode, error: message);
     } catch (e) {
       // Detalhe técnico só no log, nunca na tela.
       debugPrint('UserServices$path: $e');
-      return _result(null, error: _unexpectedError);
+      return _result(null, error: ApiErrors.unexpectedError);
     }
   }
 

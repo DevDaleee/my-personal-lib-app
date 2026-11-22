@@ -14,3 +14,8 @@ class ErrosStatusCode {
   static const int notFind = 404;
   static const int notAllowed = 405;
 }
+
+class ApiErrors {
+  static const connectionError = 'Não foi possível conectar ao servidor. Verifique sua internet.';
+  static const unexpectedError = 'Algo deu errado. Tente novamente.';
+}
