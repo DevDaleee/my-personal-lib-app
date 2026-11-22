@@ -34,6 +34,10 @@ Widget _app() {
         path: '/profile',
         builder: (_, _) => const Scaffold(body: Text('PERFIL')),
       ),
+      GoRoute(
+        path: '/stats',
+        builder: (_, _) => const Scaffold(body: Text('ESTATÍSTICAS')),
+      ),
     ],
   );
   return MaterialApp.router(theme: lightTheme, routerConfig: router);
@@ -182,5 +186,14 @@ void main() {
 
     expect(find.text('Torto Arado'), findsOneWidget);
     verify(() => services.getBooks()).called(2);
+  });
+
+  testWidgets('a barra inferior abre as Estatísticas', (tester) async {
+    await openHome(tester);
+
+    await tester.tap(find.text('Estatísticas'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('ESTATÍSTICAS'), findsOneWidget);
   });
 }

@@ -38,6 +38,10 @@ Widget _app() {
         builder: (_, _) => const Scaffold(body: Text('LOGIN')),
       ),
       GoRoute(path: '/profile', builder: (_, _) => const ProfilePage()),
+      GoRoute(
+        path: '/stats',
+        builder: (_, _) => const Scaffold(body: Text('ESTATÍSTICAS')),
+      ),
     ],
   );
   return MaterialApp.router(theme: lightTheme, routerConfig: router);
@@ -163,5 +167,14 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('LOGIN'), findsOneWidget);
+  });
+
+  testWidgets('"Estatísticas detalhadas de leitura" abre as Estatísticas', (tester) async {
+    await openProfile(tester);
+
+    await tester.tap(find.text('Estatísticas detalhadas de leitura'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('ESTATÍSTICAS'), findsOneWidget);
   });
 }

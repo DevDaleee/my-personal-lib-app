@@ -53,6 +53,10 @@ abstract class StatsControllerBase with Store {
   @observable
   bool isLoading = false;
 
+  /// A primeira busca já terminou (com ou sem erro). Antes disso, a tela mostra o carregando.
+  @observable
+  bool hasLoaded = false;
+
   /// Dias seguidos com leitura. Nulo se a chamada falhar (a tela mostra "–").
   @observable
   int? streak;
@@ -139,6 +143,7 @@ abstract class StatsControllerBase with Store {
       _applyMonthly(results[2]);
     } finally {
       isLoading = false;
+      hasLoaded = true;
     }
   }
 

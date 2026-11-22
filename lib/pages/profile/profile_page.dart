@@ -229,8 +229,8 @@ class _AccountSection extends StatelessWidget {
           child: _SettingsRow(
             icon: Icons.bar_chart,
             label: 'Estatísticas detalhadas de leitura',
-            // TODO: abrir a tela Estatísticas quando ela existir.
-            onTap: () {},
+            // Vai para a aba Estatísticas (com a barra inferior).
+            onTap: () => context.go('/stats'),
           ),
         ),
       ],

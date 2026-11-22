@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_personal_lib_app/controllers/library_controller.dart';
 import 'package:my_personal_lib_app/models/book.dart';
+import 'package:my_personal_lib_app/pages/components/app_navigation_bar.dart';
 import 'package:my_personal_lib_app/pages/components/book_tile.dart';
-import 'package:my_personal_lib_app/pages/styles/app_theme.dart';
+import 'package:my_personal_lib_app/pages/components/profile_button.dart';
 
 /// Minha biblioteca: a Home do app.
 class HomePage extends StatefulWidget {
@@ -34,22 +34,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Biblioteca'),
-        actions: [
-          _RoundIconButton(icon: Icons.person_outline, tooltip: 'Perfil', onPressed: () => context.push('/profile')),
-          const SizedBox(width: 16),
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: 0,
-        // TODO: navegar para Estatísticas quando a tela existir.
-        onDestinationSelected: (_) {},
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book), label: 'Biblioteca'),
-          NavigationDestination(icon: Icon(Icons.bar_chart_outlined), selectedIcon: Icon(Icons.bar_chart), label: 'Estatísticas'),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Biblioteca'), actions: [const ProfileButton(), const SizedBox(width: 16)]),
+      bottomNavigationBar: const AppNavigationBar(current: AppTab.library),
       body: Observer(
         builder: (context) {
           final books = controller.visibleBooks;
@@ -248,36 +234,6 @@ class _ErrorState extends StatelessWidget {
           const SizedBox(height: 12),
           OutlinedButton(onPressed: onRetry, child: const Text('Tentar novamente')),
         ],
-      ),
-    );
-  }
-}
-
-/// Botão redondo 32×32 da AppBar (Figma: `primary`, cantos 12, ícone 12 claro).
-class _RoundIconButton extends StatelessWidget {
-  const _RoundIconButton({required this.icon, required this.tooltip, required this.onPressed});
-
-  static const double _size = 32;
-
-  final IconData icon;
-  final String tooltip;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
-    return IconButton(
-      tooltip: tooltip,
-      onPressed: onPressed,
-      icon: Icon(icon, size: 14),
-      style: IconButton.styleFrom(
-        backgroundColor: colors.primary,
-        foregroundColor: colors.onPrimary,
-        fixedSize: const Size(_size, _size),
-        minimumSize: const Size(_size, _size),
-        padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(pillRadius)),
       ),
     );
   }

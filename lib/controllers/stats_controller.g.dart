@@ -49,6 +49,21 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
+  late final _$hasLoadedAtom = Atom(name: 'StatsControllerBase.hasLoaded', context: context);
+
+  @override
+  bool get hasLoaded {
+    _$hasLoadedAtom.reportRead();
+    return super.hasLoaded;
+  }
+
+  @override
+  set hasLoaded(bool value) {
+    _$hasLoadedAtom.reportWrite(value, super.hasLoaded, () {
+      super.hasLoaded = value;
+    });
+  }
+
   late final _$streakAtom = Atom(name: 'StatsControllerBase.streak', context: context);
 
   @override
@@ -187,6 +202,7 @@ mixin _$StatsController on StatsControllerBase, Store {
   String toString() {
     return '''
 isLoading: ${isLoading},
+hasLoaded: ${hasLoaded},
 streak: ${streak},
 dailyError: ${dailyError},
 monthlyError: ${monthlyError},
