@@ -7,7 +7,14 @@ class CustomDialog extends StatelessWidget {
   final String textCancel;
   final String textConfirm;
   final bool? informativeDialog;
-  const CustomDialog({super.key, required this.title, required this.bodyMessage, required this.textCancel, required this.textConfirm, this.informativeDialog = false});
+  const CustomDialog({
+    super.key,
+    required this.title,
+    required this.bodyMessage,
+    required this.textCancel,
+    required this.textConfirm,
+    this.informativeDialog = false,
+  });
 
   @override
   Widget build(BuildContext context) {
