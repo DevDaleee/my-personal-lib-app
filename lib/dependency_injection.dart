@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_personal_lib_app/controllers/auth_controller.dart';
 import 'package:my_personal_lib_app/controllers/library_controller.dart';
+import 'package:my_personal_lib_app/controllers/profile_controller.dart';
 import 'package:my_personal_lib_app/data/shared.dart';
 import 'package:my_personal_lib_app/services/api/book_services.dart';
 import 'package:my_personal_lib_app/services/api/dio.dart';
@@ -19,4 +20,5 @@ void setupLocator() {
   sl.registerLazySingleton<BookServices>(() => BookServices());
   sl.registerLazySingleton<StatsServices>(() => StatsServices());
   sl.registerLazySingleton<LibraryController>(() => LibraryController());
+  sl.registerLazySingleton<ProfileController>(() => ProfileController());
 }
