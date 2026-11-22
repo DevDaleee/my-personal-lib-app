@@ -14,6 +14,7 @@ class MainApp extends StatefulWidget {
   @override
   State<MainApp> createState() => _MainAppState();
 }
+
 class _MainAppState extends State<MainApp> {
   SystemUiOverlayStyle _systemUiFor(Brightness platformBrightness) {
     final isDark = platformBrightness == Brightness.dark;

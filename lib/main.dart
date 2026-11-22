@@ -5,7 +5,7 @@ import 'package:my_personal_lib_app/dependency_injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
+  await dotenv.load(fileName: ".env");
   setupLocator();
   runApp(const MainApp());
 }

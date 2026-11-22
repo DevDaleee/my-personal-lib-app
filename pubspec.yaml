@@ -49,6 +49,7 @@ flutter:
 
   assets:
   - .env
+  - "assets/logo/logo.svg"
 
   fonts:
     # Títulos (serifada)
