@@ -39,7 +39,14 @@ ThemeData buildAppTheme(ColorScheme scheme) {
       centerTitle: false,
       toolbarHeight: barHeight,
       titleSpacing: 16,
-      titleTextStyle: TextStyle(fontFamily: headlineFont, fontSize: 21, height: 28 / 21, letterSpacing: -0.525, fontWeight: FontWeight.w400, color: isDark ? scheme.onSurface : scheme.primary),
+      titleTextStyle: TextStyle(
+        fontFamily: headlineFont,
+        fontSize: 21,
+        height: 28 / 21,
+        letterSpacing: -0.525,
+        fontWeight: FontWeight.w400,
+        color: isDark ? scheme.onSurface : scheme.primary,
+      ),
     ),
     cardTheme: CardThemeData(
       color: scheme.surfaceContainerLow,
@@ -101,7 +108,12 @@ ThemeData buildAppTheme(ColorScheme scheme) {
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(foregroundColor: scheme.secondary, shape: smallShape),
     ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: scheme.primary, foregroundColor: scheme.onPrimary, elevation: 0, shape: smallShape),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: scheme.primary,
+      foregroundColor: scheme.onPrimary,
+      elevation: 0,
+      shape: smallShape,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: inputFill,
@@ -116,6 +128,8 @@ ThemeData buildAppTheme(ColorScheme scheme) {
       errorStyle: textTheme.bodyMedium?.copyWith(color: scheme.error, fontWeight: FontWeight.w500),
       prefixIconColor: scheme.secondary,
       suffixIconColor: scheme.secondary,
+      // Ícone dentro do campo (ex.: olho da senha) sem aumentar a altura de 46.
+      suffixIconConstraints: const BoxConstraints(minWidth: 40, minHeight: 40),
     ),
     // Barras de progresso: 4px, cantos arredondados, trilho discreto.
     progressIndicatorTheme: ProgressIndicatorThemeData(
@@ -132,7 +146,9 @@ ThemeData buildAppTheme(ColorScheme scheme) {
       elevation: 0,
       indicatorColor: Colors.transparent,
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-      iconTheme: WidgetStateProperty.resolveWith((states) => IconThemeData(size: 20, color: states.contains(WidgetState.selected) ? scheme.primary : scheme.secondary)),
+      iconTheme: WidgetStateProperty.resolveWith(
+        (states) => IconThemeData(size: 20, color: states.contains(WidgetState.selected) ? scheme.primary : scheme.secondary),
+      ),
       labelTextStyle: WidgetStateProperty.resolveWith(
         (states) => textTheme.labelSmall?.copyWith(letterSpacing: 0.275, color: states.contains(WidgetState.selected) ? scheme.primary : scheme.secondary),
       ),
