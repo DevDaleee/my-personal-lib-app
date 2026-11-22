@@ -74,4 +74,19 @@ void main() {
 
     expect(result, {'status_code': null, 'data': null, 'error': ApiErrors.connectionError});
   });
+
+  test('getDaily: chama GET /stats/daily com days', () async {
+    when(() => dio.get<dynamic>(any(), queryParameters: any(named: 'queryParameters'))).thenAnswer(
+      (_) async => _response(200, [
+        {'day': '2026-11-21', 'pages_read': 41, 'updates': 1},
+      ]),
+    );
+
+    final result = await service.getDaily(days: 30);
+
+    final captured = verify(() => dio.get<dynamic>(captureAny(), queryParameters: captureAny(named: 'queryParameters'))).captured;
+    expect(captured[0], endsWith('/stats/daily'));
+    expect(captured[1], {'days': 30});
+    expect(result['status_code'], 200);
+  });
 }

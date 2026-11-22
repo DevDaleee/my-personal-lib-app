@@ -19,4 +19,10 @@ class StatsServices {
   Future<Map<String, dynamic>> getMonthly({int months = 12}) {
     return apiRequest('StatsServices/monthly', () => api.dio.get("${ApiConstants.basePath}/stats/monthly", queryParameters: {"months": months}));
   }
+
+  /// `GET /stats/daily?days=7|15|30` → `[{"day": "2026-11-21", "pages_read": 41, "updates": 1}]`.
+  /// Dias sem leitura não aparecem.
+  Future<Map<String, dynamic>> getDaily({int days = 7}) {
+    return apiRequest('StatsServices/daily', () => api.dio.get("${ApiConstants.basePath}/stats/daily", queryParameters: {"days": days}));
+  }
 }
