@@ -136,4 +136,26 @@ void main() {
       expect(result['error'], 'Nome vazio');
     });
   });
+
+  group('getMe', () {
+    test('200: chama GET /users/me e devolve o usuário em data', () async {
+      final me = {'id': 'u-1', 'email': 'ana@example.com', 'name': 'Ana', 'created_at': '2024-05-10T12:00:00Z'};
+      when(() => dio.get<dynamic>(any())).thenAnswer((_) async => _response(200, me));
+
+      final result = await service.getMe();
+
+      expect(verify(() => dio.get<dynamic>(captureAny())).captured.single, endsWith('/users/me'));
+      expectShape(result);
+      expect(result['data'], me);
+      expect(result['error'], isNull);
+    });
+
+    test('404: devolve a mensagem da API', () async {
+      when(() => dio.get<dynamic>(any())).thenAnswer((_) => Future.error(_badResponse(404, {'error': 'Usuário não encontrado'})));
+
+      final result = await service.getMe();
+
+      expect(result, {'status_code': 404, 'data': null, 'error': 'Usuário não encontrado'});
+    });
+  });
 }
