@@ -40,18 +40,18 @@ void main() {
 
   group('login', () {
     test('200: devolve o corpo em data e error nulo', () async {
-      stubPost(() async => _response(200, {'token': 'jwt.abc'}));
+      stubPost(() async => _response(200, {'token': 'jwt.abc', 'user_id': 'u-1'}));
 
       final result = await service.login('leitor@caderno.com.br', 'Leitura#2026');
 
       expectShape(result);
       expect(result['status_code'], 200);
-      expect(result['data'], {'token': 'jwt.abc'});
+      expect(result['data'], {'token': 'jwt.abc', 'user_id': 'u-1'});
       expect(result['error'], isNull);
     });
 
     test('envia e-mail e senha para /auth/login', () async {
-      stubPost(() async => _response(200, {'token': 'jwt.abc'}));
+      stubPost(() async => _response(200, {'token': 'jwt.abc', 'user_id': 'u-1'}));
 
       await service.login('leitor@caderno.com.br', 'Leitura#2026');
 

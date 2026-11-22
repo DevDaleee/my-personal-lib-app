@@ -29,7 +29,7 @@ void main() {
     }
 
     testWidgets('200: salva o token e vai para a Home', (tester) async {
-      when(() => users.login(any(), any())).thenAnswer((_) async => ok(200, {'token': 'jwt.abc'}));
+      when(() => users.login(any(), any())).thenAnswer((_) async => ok(200, {'token': 'jwt.abc', 'user_id': 'u-1'}));
       await tester.pumpWidget(authApp());
       await fillLogin(tester);
 
@@ -37,6 +37,7 @@ void main() {
 
       verify(() => users.login('leitor@caderno.com.br', 'Leitura#2026')).called(1);
       expect(await _savedToken(), 'jwt.abc');
+      expect((await SharedPreferences.getInstance()).getString(entityId), 'u-1');
       expect(find.text('HOME'), findsOneWidget);
       await flushToasts(tester);
     });
@@ -107,7 +108,7 @@ void main() {
 
     testWidgets('201: sai do cadastro (para a Home já logado ou para o login)', (tester) async {
       when(() => users.register(any(), any(), any())).thenAnswer((_) async => ok(201, created));
-      when(() => users.login(any(), any())).thenAnswer((_) async => ok(200, {'token': 'jwt.novo'}));
+      when(() => users.login(any(), any())).thenAnswer((_) async => ok(200, {'token': 'jwt.novo', 'user_id': 'u-1'}));
       await tester.pumpWidget(authApp(initialLocation: '/register'));
       await fillRegister(tester);
 

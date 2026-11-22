@@ -11,10 +11,11 @@ class SecurityStorage {
 
   // ------------------ Autenticação ------------------
 
-  static Future<void> addAccessToken({required String accessKeyValue, required String userIdValue}) async {
+  // O id do usuário é opcional: o token já carrega o id no "sub".
+  static Future<void> addAccessToken({required String accessKeyValue, String? userIdValue}) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(tokenKey, accessKeyValue);
-    await prefs.setString(entityId, userIdValue);
+    if (userIdValue != null) await prefs.setString(entityId, userIdValue);
   }
 
   static Future<String?> readAccessToken() async {
