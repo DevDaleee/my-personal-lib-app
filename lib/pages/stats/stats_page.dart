@@ -204,15 +204,15 @@ class _SectionCard extends StatelessWidget {
 }
 
 /// Seletor de período em "trilho": `7 dias | 15 dias | 30 dias`.
-/// `strong` = selecionado em `primary` (mensal); senão, em `surface` (diário).
+/// Selecionado em `primary` nos dois seletores (decisão de 23/11/2026: o Figma
+/// usava `surface` no diário e `primary` no mensal).
 class _RangeSelector<T> extends StatelessWidget {
-  const _RangeSelector({required this.values, required this.selected, required this.labelOf, required this.onSelected, this.strong = false});
+  const _RangeSelector({required this.values, required this.selected, required this.labelOf, required this.onSelected});
 
   final List<T> values;
   final T selected;
   final String Function(T) labelOf;
   final ValueChanged<T> onSelected;
-  final bool strong;
 
   @override
   Widget build(BuildContext context) {
@@ -235,12 +235,12 @@ class _RangeSelector<T> extends StatelessWidget {
                   child: Container(
                     height: 28,
                     alignment: Alignment.center,
-                    decoration: value == selected ? BoxDecoration(color: strong ? colors.primary : colors.surface, borderRadius: BorderRadius.circular(smallRadius)) : null,
+                    decoration: value == selected ? BoxDecoration(color: colors.primary, borderRadius: BorderRadius.circular(smallRadius)) : null,
                     child: Text(
                       labelOf(value),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.labelMedium?.copyWith(color: value == selected ? (strong ? colors.onPrimary : colors.primary) : colors.onSecondaryContainer),
+                      style: textTheme.labelMedium?.copyWith(color: value == selected ? colors.onPrimary : colors.onSecondaryContainer),
                     ),
                   ),
                 ),
@@ -455,7 +455,6 @@ class _MonthlyCard extends StatelessWidget {
             selected: controller.monthlyRange,
             labelOf: (range) => range.label,
             onSelected: controller.selectMonthlyRange,
-            strong: true,
           ),
           child: controller.monthlyError != null
               ? _InlineError(message: controller.monthlyError!, onRetry: controller.load)
