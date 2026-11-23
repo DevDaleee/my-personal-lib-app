@@ -60,8 +60,7 @@ class _HomePageState extends State<HomePage> {
                     if (books.isEmpty && controller.isLoading && controller.error == null) const _LoadingState(),
                     if (books.isEmpty && !controller.isLoading && controller.error == null) _EmptyState(filter: controller.filter),
                     for (final (index, book) in books.indexed) ...[
-                      // TODO: abrir o Detalhe do livro quando a tela existir.
-                      BookTile(book: book),
+                      BookTile(book: book, onTap: () => context.push('/books/${book.id}')),
                       if (index < books.length - 1) const Divider(),
                     ],
                   ],

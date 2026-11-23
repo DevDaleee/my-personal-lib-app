@@ -22,4 +22,9 @@ void main() {
     expect(dayMonthLong(DateTime(2026, 11, 19)), '19 de novembro');
     expect(dayMonthLong(DateTime(2026, 3, 1)), '1 de março');
   });
+
+  test('fullDate: "03/11/2026" com dois dígitos', () {
+    expect(fullDate(DateTime(2026, 11, 3)), '03/11/2026');
+    expect(fullDate(DateTime(2026, 1, 25)), '25/01/2026');
+  });
 }

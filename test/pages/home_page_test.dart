@@ -39,6 +39,10 @@ Widget _app() {
         builder: (_, _) => const Scaffold(body: Text('NOVO LIVRO')),
       ),
       GoRoute(
+        path: '/books/:id',
+        builder: (_, state) => Scaffold(body: Text('DETALHE ${state.pathParameters['id']}')),
+      ),
+      GoRoute(
         path: '/stats',
         builder: (_, _) => const Scaffold(body: Text('ESTATÍSTICAS')),
       ),
@@ -146,6 +150,16 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('PERFIL'), findsOneWidget);
+  });
+
+  testWidgets('tocar num livro abre o Detalhe dele', (tester) async {
+    apiReturns(sampleShelf());
+    await openHome(tester);
+
+    await tester.tap(find.text('A Hora da Estrela'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('DETALHE b-3'), findsOneWidget);
   });
 
   testWidgets('o botão "Novo livro" abre o formulário', (tester) async {

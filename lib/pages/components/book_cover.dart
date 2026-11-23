@@ -2,18 +2,23 @@ import 'package:material_ui/material_ui.dart';
 import 'package:my_personal_lib_app/models/book.dart';
 import 'package:my_personal_lib_app/pages/styles/app_theme.dart';
 
-/// Capa pequena da lista (48×72). Usa a `cover_url` quando existe; sem imagem
-/// (ou se ela falhar), mostra as iniciais do título, um traço na cor do status
-/// e o sobrenome do autor.
+/// Capa do livro: 48×72 na lista e 128×192 no Detalhe. Usa a `cover_url`
+/// quando existe; sem imagem (ou se ela falhar), mostra as iniciais do título,
+/// um traço na cor do status e o sobrenome do autor.
 class BookCover extends StatelessWidget {
-  const BookCover({super.key, required this.book});
+  const BookCover({super.key, required this.book, this.width = defaultWidth, this.height = defaultHeight});
 
-  // Medidas do Figma (px).
-  static const double width = 48;
-  static const double height = 72;
+  // Medidas do Figma (px), na capa da lista.
+  static const double defaultWidth = 48;
+  static const double defaultHeight = 72;
   static const double _padding = 6;
 
   final Book book;
+  final double width;
+  final double height;
+
+  /// Quanto a capa é maior que a da lista: escala os textos da capa sem imagem.
+  double get _scale => width / defaultWidth;
 
   /// Iniciais das duas primeiras palavras do título ("Torto Arado" → "TA").
   static String initials(String title) {
@@ -33,11 +38,11 @@ class BookCover extends StatelessWidget {
         width: width,
         height: height,
         child: url == null || url.isEmpty
-            ? _Placeholder(book: book)
+            ? _Placeholder(book: book, scale: _scale)
             : Image.network(
                 url,
                 fit: BoxFit.cover,
-                errorBuilder: (_, _, _) => _Placeholder(book: book),
+                errorBuilder: (_, _, _) => _Placeholder(book: book, scale: _scale),
               ),
       ),
     );
@@ -45,9 +50,10 @@ class BookCover extends StatelessWidget {
 }
 
 class _Placeholder extends StatelessWidget {
-  const _Placeholder({required this.book});
+  const _Placeholder({required this.book, required this.scale});
 
   final Book book;
+  final double scale;
 
   @override
   Widget build(BuildContext context) {
@@ -60,22 +66,22 @@ class _Placeholder extends StatelessWidget {
 
     return Container(
       color: colors.surfaceContainerHigh,
-      padding: const EdgeInsets.all(BookCover._padding),
+      padding: EdgeInsets.all(BookCover._padding * scale),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             BookCover.initials(book.title),
-            style: TextStyle(fontFamily: headlineFont, fontSize: 10, fontWeight: FontWeight.w500, color: colors.primary),
+            style: TextStyle(fontFamily: headlineFont, fontSize: 10 * scale, fontWeight: FontWeight.w500, color: colors.primary),
           ),
-          const SizedBox(height: 4),
-          Container(width: 8, height: 2, color: stripe),
+          SizedBox(height: 4 * scale),
+          Container(width: 8 * scale, height: 2 * scale, color: stripe),
           const Spacer(),
           Text(
             BookCover.lastName(book.author),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontFamily: bodyFont, fontSize: 8, color: colors.secondary),
+            style: TextStyle(fontFamily: bodyFont, fontSize: 8 * scale, color: colors.secondary),
           ),
         ],
       ),

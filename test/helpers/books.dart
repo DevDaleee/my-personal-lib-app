@@ -9,8 +9,13 @@ Book fakeBook({
   int currentPage = 0,
   BookStatus status = BookStatus.wannaRead,
   String? coverUrl,
+  int? rating,
+  String? notes,
+  String? isbn,
+  bool owned = true,
+  DateTime? createdAt,
 }) {
-  final now = DateTime(2026, 11, 22);
+  final now = createdAt ?? DateTime(2026, 11, 22);
   return Book(
     id: id,
     userId: 'u-1',
@@ -20,7 +25,10 @@ Book fakeBook({
     currentPage: currentPage,
     status: status,
     coverUrl: coverUrl,
-    owned: true,
+    rating: rating,
+    notes: notes,
+    isbn: isbn,
+    owned: owned,
     createdAt: now,
     updatedAt: now,
   );

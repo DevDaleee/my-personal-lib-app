@@ -19,3 +19,9 @@ String dayMonth(DateTime date) => '${_twoDigits(date.day)}/${_twoDigits(date.mon
 
 /// "19 de novembro".
 String dayMonthLong(DateTime date) => '${date.day} de ${_longMonths[date.month - 1]}';
+
+/// "03/11/2026": data completa, no fuso do aparelho.
+String fullDate(DateTime date) {
+  final local = date.toLocal();
+  return '${_twoDigits(local.day)}/${_twoDigits(local.month)}/${local.year}';
+}
