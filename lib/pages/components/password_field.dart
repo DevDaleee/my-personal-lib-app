@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Campo de senha com o ícone de olho para mostrar/esconder.
 /// Começa escondido; cada campo controla o próprio estado.

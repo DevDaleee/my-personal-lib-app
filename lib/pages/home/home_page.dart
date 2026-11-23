@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_personal_lib_app/controllers/library_controller.dart';
@@ -101,11 +101,7 @@ class _Header extends StatelessWidget {
           onPressed: () {},
           icon: const Icon(Icons.add, size: 12),
           label: const Text('Novo livro'),
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(0, 32),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            textStyle: textTheme.labelMedium,
-          ),
+          style: ElevatedButton.styleFrom(minimumSize: const Size(0, 32), padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), textStyle: textTheme.labelMedium),
         ),
       ],
     );

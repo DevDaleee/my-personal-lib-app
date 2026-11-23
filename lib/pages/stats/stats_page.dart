@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_personal_lib_app/controllers/stats_controller.dart';
@@ -159,10 +159,7 @@ class _StreakCard extends StatelessWidget {
                   Expanded(
                     child: Container(
                       height: _dashHeight,
-                      decoration: BoxDecoration(
-                        color: read ? colors.primaryContainer : colors.secondaryContainer,
-                        borderRadius: BorderRadius.circular(_dashHeight / 2),
-                      ),
+                      decoration: BoxDecoration(color: read ? colors.primaryContainer : colors.secondaryContainer, borderRadius: BorderRadius.circular(_dashHeight / 2)),
                     ),
                   ),
                 ],
@@ -238,16 +235,12 @@ class _RangeSelector<T> extends StatelessWidget {
                   child: Container(
                     height: 28,
                     alignment: Alignment.center,
-                    decoration: value == selected
-                        ? BoxDecoration(color: strong ? colors.primary : colors.surface, borderRadius: BorderRadius.circular(smallRadius))
-                        : null,
+                    decoration: value == selected ? BoxDecoration(color: strong ? colors.primary : colors.surface, borderRadius: BorderRadius.circular(smallRadius)) : null,
                     child: Text(
                       labelOf(value),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.labelMedium?.copyWith(
-                        color: value == selected ? (strong ? colors.onPrimary : colors.primary) : colors.onSecondaryContainer,
-                      ),
+                      style: textTheme.labelMedium?.copyWith(color: value == selected ? (strong ? colors.onPrimary : colors.primary) : colors.onSecondaryContainer),
                     ),
                   ),
                 ),
@@ -272,12 +265,7 @@ class _DailyCard extends StatelessWidget {
       builder: (context) {
         return _SectionCard(
           title: 'Páginas por dia',
-          selector: _RangeSelector<DailyRange>(
-            values: DailyRange.values,
-            selected: controller.dailyRange,
-            labelOf: (range) => range.label,
-            onSelected: controller.selectDailyRange,
-          ),
+          selector: _RangeSelector<DailyRange>(values: DailyRange.values, selected: controller.dailyRange, labelOf: (range) => range.label, onSelected: controller.selectDailyRange),
           child: controller.dailyError != null
               ? _InlineError(message: controller.dailyError!, onRetry: controller.load)
               : Column(
@@ -373,10 +361,7 @@ class _DailyChart extends StatelessWidget {
                             fitInside: SideTitleFitInsideData.fromTitleMeta(meta),
                             child: Text(
                               dayMonth(points[index].day),
-                              style: textTheme.bodySmall?.copyWith(
-                                color: isToday ? colors.primary : colors.secondary,
-                                fontWeight: isToday ? FontWeight.w600 : FontWeight.w400,
-                              ),
+                              style: textTheme.bodySmall?.copyWith(color: isToday ? colors.primary : colors.secondary, fontWeight: isToday ? FontWeight.w600 : FontWeight.w400),
                             ),
                           );
                         },
@@ -391,10 +376,8 @@ class _DailyChart extends StatelessWidget {
                       getTooltipColor: (_) => Colors.transparent,
                       tooltipPadding: EdgeInsets.zero,
                       tooltipMargin: 2,
-                      getTooltipItem: (group, groupIndex, rod, rodIndex) => BarTooltipItem(
-                        rod.toY.round().toString(),
-                        textTheme.bodySmall!.copyWith(fontSize: 10, color: colors.primary, fontWeight: FontWeight.w600),
-                      ),
+                      getTooltipItem: (group, groupIndex, rod, rodIndex) =>
+                          BarTooltipItem(rod.toY.round().toString(), textTheme.bodySmall!.copyWith(fontSize: 10, color: colors.primary, fontWeight: FontWeight.w600)),
                     ),
                   ),
                   barGroups: [
@@ -444,10 +427,7 @@ class _BestDay extends StatelessWidget {
                 Expanded(
                   child: Text('Sessão mais produtiva', style: textTheme.bodyMedium?.copyWith(color: colors.secondary)),
                 ),
-                Text(
-                  '${dayMonthLong(best.day)} (${best.pagesRead} ${best.pagesRead == 1 ? 'pág' : 'págs'})',
-                  style: textTheme.titleSmall?.copyWith(color: colors.primary),
-                ),
+                Text('${dayMonthLong(best.day)} (${best.pagesRead} ${best.pagesRead == 1 ? 'pág' : 'págs'})', style: textTheme.titleSmall?.copyWith(color: colors.primary)),
               ],
             ),
     );

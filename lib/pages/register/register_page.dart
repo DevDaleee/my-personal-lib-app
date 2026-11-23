@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_personal_lib_app/controllers/auth_controller.dart';
@@ -29,11 +29,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
       key: _formKey,
       child: AuthLayout(
         children: [
-          const AuthHeader(
-            subtitle: "Comece seu refúgio de leituras, anotações e memórias.",
-            sectionTitle: "Criar sua conta",
-            sectionSubtitle: "Leva menos de um minuto para organizar seus livros.",
-          ),
+          const AuthHeader(subtitle: "Comece seu refúgio de leituras, anotações e memórias.", sectionTitle: "Criar sua conta", sectionSubtitle: "Leva menos de um minuto para organizar seus livros."),
           const SizedBox(height: AuthSpacing.headerToForm),
 
           // Nome livre: como a pessoa quer ser identificada (não precisa ser o completo).
@@ -83,8 +79,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
             label: 'Confirmar senha',
             child: PasswordField(
               controller: controller.rpasswordController,
-              validator: (value) =>
-                  combineValidations([() => isNotEmpty(value), () => value != controller.passwordController.text ? 'As senhas não conferem' : null]),
+              validator: (value) => combineValidations([() => isNotEmpty(value), () => value != controller.passwordController.text ? 'As senhas não conferem' : null]),
               hintText: 'Repita a senha digitada',
               isNewPassword: true,
               textInputAction: TextInputAction.done,

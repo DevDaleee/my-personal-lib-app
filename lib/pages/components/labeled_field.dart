@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Rótulo acima de um campo ("E-mail", "Senha"...), como no Figma:
 /// o rótulo fica fora do campo, e não dentro dele como no padrão do Material.

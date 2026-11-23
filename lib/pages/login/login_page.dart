@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -31,11 +31,7 @@ class _LoginPageState extends State<LoginPage> with ValidationMixin {
           key: _formKey,
           child: AuthLayout(
             children: [
-              const AuthHeader(
-                subtitle: "Seu refúgio silencioso para páginas, notas e memórias.",
-                sectionTitle: "Acessar estante",
-                sectionSubtitle: "Continue suas anotações de onde parou.",
-              ),
+              const AuthHeader(subtitle: "Seu refúgio silencioso para páginas, notas e memórias.", sectionTitle: "Acessar estante", sectionSubtitle: "Continue suas anotações de onde parou."),
               const SizedBox(height: AuthSpacing.headerToForm),
 
               LabeledField(

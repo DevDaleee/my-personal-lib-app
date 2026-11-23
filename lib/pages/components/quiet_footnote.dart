@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Card discreto de rodapé com ícone, título em caixa alta e um texto.
 /// Ex.: "SEM DISTRAÇÕES" nas telas de entrada.

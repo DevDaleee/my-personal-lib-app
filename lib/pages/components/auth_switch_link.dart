@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Linha centralizada que troca entre Entrar e Criar conta:
 /// "Não tem conta? Criar conta" / "Já tem uma conta? Entrar".

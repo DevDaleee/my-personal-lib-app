@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -82,10 +82,7 @@ void main() {
       ]),
     );
     when(() => books.getBooks()).thenAnswer(
-      (_) async => booksOk([
-        fakeBook(id: 'b-1', currentPage: 4000, totalPages: 5000, status: BookStatus.reading),
-        fakeBook(id: 'b-2', currentPage: 820, totalPages: 820, status: BookStatus.read),
-      ]),
+      (_) async => booksOk([fakeBook(id: 'b-1', currentPage: 4000, totalPages: 5000, status: BookStatus.reading), fakeBook(id: 'b-2', currentPage: 820, totalPages: 820, status: BookStatus.read)]),
     );
   });
 

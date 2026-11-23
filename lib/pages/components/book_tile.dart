@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:my_personal_lib_app/models/book.dart';
 import 'package:my_personal_lib_app/pages/components/book_cover.dart';
 import 'package:my_personal_lib_app/pages/components/status_badge.dart';

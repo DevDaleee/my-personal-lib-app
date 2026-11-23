@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:my_personal_lib_app/pages/styles/app_theme.dart';
 
 // Paleta "Nocturne Folio" (tema escuro): verde-menta sobre tinta.
