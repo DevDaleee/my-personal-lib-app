@@ -59,6 +59,8 @@ class _MainAppState extends State<MainApp> {
                   ),
                 );
               },
+              // Título da aba na web e da lista de apps recentes no celular.
+              title: 'Biblioteca Pessoal',
               debugShowCheckedModeBanner: false,
               theme: lightTheme,
               darkTheme: darkTheme,

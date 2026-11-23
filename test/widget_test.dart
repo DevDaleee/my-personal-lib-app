@@ -16,6 +16,13 @@ void main() {
     expect(find.text('Entrar'), findsOneWidget);
   });
 
+  testWidgets('o título do app é "Biblioteca Pessoal"', (tester) async {
+    await tester.pumpWidget(const MainApp());
+    await tester.pumpAndSettle();
+
+    expect(tester.widget<Title>(find.byType(Title)).title, 'Biblioteca Pessoal');
+  });
+
   testWidgets('os links levam do login ao cadastro e de volta', (tester) async {
     await tester.pumpWidget(const MainApp());
     await tester.pumpAndSettle();
