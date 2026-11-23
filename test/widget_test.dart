@@ -29,4 +29,17 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Acessar estante'), findsOneWidget);
   });
+
+  testWidgets('em tela larga, a tela fica centralizada com no máximo 600px', (tester) async {
+    tester.view.physicalSize = const Size(1400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(const MainApp());
+    await tester.pumpAndSettle();
+
+    final page = tester.getRect(find.byType(Navigator).last);
+    expect(page.width, 600);
+    expect(page.center.dx, 700);
+  });
 }

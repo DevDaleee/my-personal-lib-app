@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:my_personal_lib_app/pages/router.dart';
+import 'package:my_personal_lib_app/pages/styles/app_theme.dart';
 import 'package:my_personal_lib_app/pages/styles/dark_theme.dart';
 import 'package:my_personal_lib_app/pages/styles/light_theme.dart';
 import 'package:sizer/sizer.dart';
@@ -46,7 +47,16 @@ class _MainAppState extends State<MainApp> {
                 final mq = MediaQuery.of(context);
                 return MediaQuery(
                   data: mq.copyWith(textScaler: mq.textScaler.clamp(minScaleFactor: 0.9, maxScaleFactor: 1.2)),
-                  child: Scaffold(body: child),
+                  // Na web, a tela inteira (AppBar e barra inferior incluídas) fica
+                  // centralizada com no máximo 600px; o fundo aparece nas laterais.
+                  child: Scaffold(
+                    body: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: maxContentWidth),
+                        child: child,
+                      ),
+                    ),
+                  ),
                 );
               },
               debugShowCheckedModeBanner: false,

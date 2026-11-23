@@ -8,6 +8,9 @@ const double pillRadius = 12;
 const double buttonHeight = 48;
 const double barHeight = 64;
 
+/// Largura máxima das telas na web (layout mobile-first centralizado).
+const double maxContentWidth = 600;
+
 ThemeData buildAppTheme(ColorScheme scheme) {
   final isDark = scheme.brightness == Brightness.dark;
   final base = ThemeData(useMaterial3: true, colorScheme: scheme, fontFamily: bodyFont);
