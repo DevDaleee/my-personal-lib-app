@@ -12,9 +12,16 @@ mixin _$LibraryController on LibraryControllerBase, Store {
   Computed<List<Book>>? _$visibleBooksComputed;
 
   @override
-  List<Book> get visibleBooks => (_$visibleBooksComputed ??= Computed<List<Book>>(() => super.visibleBooks, name: 'LibraryControllerBase.visibleBooks')).value;
+  List<Book> get visibleBooks =>
+      (_$visibleBooksComputed ??= Computed<List<Book>>(
+        () => super.visibleBooks,
+        name: 'LibraryControllerBase.visibleBooks',
+      )).value;
 
-  late final _$isLoadingAtom = Atom(name: 'LibraryControllerBase.isLoading', context: context);
+  late final _$isLoadingAtom = Atom(
+    name: 'LibraryControllerBase.isLoading',
+    context: context,
+  );
 
   @override
   bool get isLoading {
@@ -29,7 +36,10 @@ mixin _$LibraryController on LibraryControllerBase, Store {
     });
   }
 
-  late final _$errorAtom = Atom(name: 'LibraryControllerBase.error', context: context);
+  late final _$errorAtom = Atom(
+    name: 'LibraryControllerBase.error',
+    context: context,
+  );
 
   @override
   String? get error {
@@ -44,7 +54,10 @@ mixin _$LibraryController on LibraryControllerBase, Store {
     });
   }
 
-  late final _$booksAtom = Atom(name: 'LibraryControllerBase.books', context: context);
+  late final _$booksAtom = Atom(
+    name: 'LibraryControllerBase.books',
+    context: context,
+  );
 
   @override
   ObservableList<Book> get books {
@@ -59,7 +72,10 @@ mixin _$LibraryController on LibraryControllerBase, Store {
     });
   }
 
-  late final _$filterAtom = Atom(name: 'LibraryControllerBase.filter', context: context);
+  late final _$filterAtom = Atom(
+    name: 'LibraryControllerBase.filter',
+    context: context,
+  );
 
   @override
   BookFilter get filter {
@@ -74,18 +90,26 @@ mixin _$LibraryController on LibraryControllerBase, Store {
     });
   }
 
-  late final _$fetchBooksAsyncAction = AsyncAction('LibraryControllerBase.fetchBooks', context: context);
+  late final _$fetchBooksAsyncAction = AsyncAction(
+    'LibraryControllerBase.fetchBooks',
+    context: context,
+  );
 
   @override
   Future<void> fetchBooks() {
     return _$fetchBooksAsyncAction.run(() => super.fetchBooks());
   }
 
-  late final _$LibraryControllerBaseActionController = ActionController(name: 'LibraryControllerBase', context: context);
+  late final _$LibraryControllerBaseActionController = ActionController(
+    name: 'LibraryControllerBase',
+    context: context,
+  );
 
   @override
   void selectFilter(BookFilter value) {
-    final _$actionInfo = _$LibraryControllerBaseActionController.startAction(name: 'LibraryControllerBase.selectFilter');
+    final _$actionInfo = _$LibraryControllerBaseActionController.startAction(
+      name: 'LibraryControllerBase.selectFilter',
+    );
     try {
       return super.selectFilter(value);
     } finally {
@@ -95,7 +119,9 @@ mixin _$LibraryController on LibraryControllerBase, Store {
 
   @override
   void setBooks(List<Book> value) {
-    final _$actionInfo = _$LibraryControllerBaseActionController.startAction(name: 'LibraryControllerBase.setBooks');
+    final _$actionInfo = _$LibraryControllerBaseActionController.startAction(
+      name: 'LibraryControllerBase.setBooks',
+    );
     try {
       return super.setBooks(value);
     } finally {

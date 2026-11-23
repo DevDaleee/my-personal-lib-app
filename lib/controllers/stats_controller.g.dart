@@ -13,28 +13,45 @@ mixin _$StatsController on StatsControllerBase, Store {
 
   @override
   List<DailyStat> get dailyPoints =>
-      (_$dailyPointsComputed ??= Computed<List<DailyStat>>(() => super.dailyPoints, name: 'StatsControllerBase.dailyPoints')).value;
+      (_$dailyPointsComputed ??= Computed<List<DailyStat>>(
+        () => super.dailyPoints,
+        name: 'StatsControllerBase.dailyPoints',
+      )).value;
   Computed<List<bool>>? _$lastSevenDaysComputed;
 
   @override
   List<bool> get lastSevenDays =>
-      (_$lastSevenDaysComputed ??= Computed<List<bool>>(() => super.lastSevenDays, name: 'StatsControllerBase.lastSevenDays')).value;
+      (_$lastSevenDaysComputed ??= Computed<List<bool>>(
+        () => super.lastSevenDays,
+        name: 'StatsControllerBase.lastSevenDays',
+      )).value;
   Computed<DailyStat?>? _$bestDayComputed;
 
   @override
-  DailyStat? get bestDay => (_$bestDayComputed ??= Computed<DailyStat?>(() => super.bestDay, name: 'StatsControllerBase.bestDay')).value;
+  DailyStat? get bestDay => (_$bestDayComputed ??= Computed<DailyStat?>(
+    () => super.bestDay,
+    name: 'StatsControllerBase.bestDay',
+  )).value;
   Computed<List<MonthlyStat>>? _$monthlyPointsComputed;
 
   @override
   List<MonthlyStat> get monthlyPoints =>
-      (_$monthlyPointsComputed ??= Computed<List<MonthlyStat>>(() => super.monthlyPoints, name: 'StatsControllerBase.monthlyPoints')).value;
+      (_$monthlyPointsComputed ??= Computed<List<MonthlyStat>>(
+        () => super.monthlyPoints,
+        name: 'StatsControllerBase.monthlyPoints',
+      )).value;
   Computed<int?>? _$finishedThisYearComputed;
 
   @override
-  int? get finishedThisYear =>
-      (_$finishedThisYearComputed ??= Computed<int?>(() => super.finishedThisYear, name: 'StatsControllerBase.finishedThisYear')).value;
+  int? get finishedThisYear => (_$finishedThisYearComputed ??= Computed<int?>(
+    () => super.finishedThisYear,
+    name: 'StatsControllerBase.finishedThisYear',
+  )).value;
 
-  late final _$isLoadingAtom = Atom(name: 'StatsControllerBase.isLoading', context: context);
+  late final _$isLoadingAtom = Atom(
+    name: 'StatsControllerBase.isLoading',
+    context: context,
+  );
 
   @override
   bool get isLoading {
@@ -49,7 +66,10 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$hasLoadedAtom = Atom(name: 'StatsControllerBase.hasLoaded', context: context);
+  late final _$hasLoadedAtom = Atom(
+    name: 'StatsControllerBase.hasLoaded',
+    context: context,
+  );
 
   @override
   bool get hasLoaded {
@@ -64,7 +84,10 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$streakAtom = Atom(name: 'StatsControllerBase.streak', context: context);
+  late final _$streakAtom = Atom(
+    name: 'StatsControllerBase.streak',
+    context: context,
+  );
 
   @override
   int? get streak {
@@ -79,7 +102,10 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$dailyErrorAtom = Atom(name: 'StatsControllerBase.dailyError', context: context);
+  late final _$dailyErrorAtom = Atom(
+    name: 'StatsControllerBase.dailyError',
+    context: context,
+  );
 
   @override
   String? get dailyError {
@@ -94,7 +120,10 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$monthlyErrorAtom = Atom(name: 'StatsControllerBase.monthlyError', context: context);
+  late final _$monthlyErrorAtom = Atom(
+    name: 'StatsControllerBase.monthlyError',
+    context: context,
+  );
 
   @override
   String? get monthlyError {
@@ -109,7 +138,10 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$_dailyAtom = Atom(name: 'StatsControllerBase._daily', context: context);
+  late final _$_dailyAtom = Atom(
+    name: 'StatsControllerBase._daily',
+    context: context,
+  );
 
   @override
   List<DailyStat> get _daily {
@@ -124,7 +156,10 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$_monthlyAtom = Atom(name: 'StatsControllerBase._monthly', context: context);
+  late final _$_monthlyAtom = Atom(
+    name: 'StatsControllerBase._monthly',
+    context: context,
+  );
 
   @override
   List<MonthlyStat> get _monthly {
@@ -139,7 +174,10 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$dailyRangeAtom = Atom(name: 'StatsControllerBase.dailyRange', context: context);
+  late final _$dailyRangeAtom = Atom(
+    name: 'StatsControllerBase.dailyRange',
+    context: context,
+  );
 
   @override
   DailyRange get dailyRange {
@@ -154,7 +192,10 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$monthlyRangeAtom = Atom(name: 'StatsControllerBase.monthlyRange', context: context);
+  late final _$monthlyRangeAtom = Atom(
+    name: 'StatsControllerBase.monthlyRange',
+    context: context,
+  );
 
   @override
   MonthlyRange get monthlyRange {
@@ -169,18 +210,26 @@ mixin _$StatsController on StatsControllerBase, Store {
     });
   }
 
-  late final _$loadAsyncAction = AsyncAction('StatsControllerBase.load', context: context);
+  late final _$loadAsyncAction = AsyncAction(
+    'StatsControllerBase.load',
+    context: context,
+  );
 
   @override
   Future<void> load() {
     return _$loadAsyncAction.run(() => super.load());
   }
 
-  late final _$StatsControllerBaseActionController = ActionController(name: 'StatsControllerBase', context: context);
+  late final _$StatsControllerBaseActionController = ActionController(
+    name: 'StatsControllerBase',
+    context: context,
+  );
 
   @override
   void selectDailyRange(DailyRange value) {
-    final _$actionInfo = _$StatsControllerBaseActionController.startAction(name: 'StatsControllerBase.selectDailyRange');
+    final _$actionInfo = _$StatsControllerBaseActionController.startAction(
+      name: 'StatsControllerBase.selectDailyRange',
+    );
     try {
       return super.selectDailyRange(value);
     } finally {
@@ -190,7 +239,9 @@ mixin _$StatsController on StatsControllerBase, Store {
 
   @override
   void selectMonthlyRange(MonthlyRange value) {
-    final _$actionInfo = _$StatsControllerBaseActionController.startAction(name: 'StatsControllerBase.selectMonthlyRange');
+    final _$actionInfo = _$StatsControllerBaseActionController.startAction(
+      name: 'StatsControllerBase.selectMonthlyRange',
+    );
     try {
       return super.selectMonthlyRange(value);
     } finally {

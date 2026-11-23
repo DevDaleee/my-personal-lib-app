@@ -19,10 +19,18 @@ Book _$BookFromJson(Map<String, dynamic> json) => Book(
   notes: json['notes'] as String?,
   coverUrl: json['cover_url'] as String?,
   owned: json['owned'] as bool,
-  startedAt: json['started_at'] == null ? null : DateTime.parse(json['started_at'] as String),
-  finishedAt: json['finished_at'] == null ? null : DateTime.parse(json['finished_at'] as String),
+  startedAt: json['started_at'] == null
+      ? null
+      : DateTime.parse(json['started_at'] as String),
+  finishedAt: json['finished_at'] == null
+      ? null
+      : DateTime.parse(json['finished_at'] as String),
   createdAt: DateTime.parse(json['created_at'] as String),
   updatedAt: DateTime.parse(json['updated_at'] as String),
 );
 
-const _$BookStatusEnumMap = {BookStatus.wannaRead: 'wanna_read', BookStatus.reading: 'reading', BookStatus.read: 'read'};
+const _$BookStatusEnumMap = {
+  BookStatus.wannaRead: 'wanna_read',
+  BookStatus.reading: 'reading',
+  BookStatus.read: 'read',
+};

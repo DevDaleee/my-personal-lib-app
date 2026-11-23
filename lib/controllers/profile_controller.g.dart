@@ -12,9 +12,15 @@ mixin _$ProfileController on ProfileControllerBase, Store {
   Computed<int>? _$pagesReadComputed;
 
   @override
-  int get pagesRead => (_$pagesReadComputed ??= Computed<int>(() => super.pagesRead, name: 'ProfileControllerBase.pagesRead')).value;
+  int get pagesRead => (_$pagesReadComputed ??= Computed<int>(
+    () => super.pagesRead,
+    name: 'ProfileControllerBase.pagesRead',
+  )).value;
 
-  late final _$isLoadingAtom = Atom(name: 'ProfileControllerBase.isLoading', context: context);
+  late final _$isLoadingAtom = Atom(
+    name: 'ProfileControllerBase.isLoading',
+    context: context,
+  );
 
   @override
   bool get isLoading {
@@ -29,7 +35,10 @@ mixin _$ProfileController on ProfileControllerBase, Store {
     });
   }
 
-  late final _$errorAtom = Atom(name: 'ProfileControllerBase.error', context: context);
+  late final _$errorAtom = Atom(
+    name: 'ProfileControllerBase.error',
+    context: context,
+  );
 
   @override
   String? get error {
@@ -44,7 +53,10 @@ mixin _$ProfileController on ProfileControllerBase, Store {
     });
   }
 
-  late final _$userAtom = Atom(name: 'ProfileControllerBase.user', context: context);
+  late final _$userAtom = Atom(
+    name: 'ProfileControllerBase.user',
+    context: context,
+  );
 
   @override
   User? get user {
@@ -59,7 +71,10 @@ mixin _$ProfileController on ProfileControllerBase, Store {
     });
   }
 
-  late final _$finishedThisYearAtom = Atom(name: 'ProfileControllerBase.finishedThisYear', context: context);
+  late final _$finishedThisYearAtom = Atom(
+    name: 'ProfileControllerBase.finishedThisYear',
+    context: context,
+  );
 
   @override
   int? get finishedThisYear {
@@ -74,7 +89,10 @@ mixin _$ProfileController on ProfileControllerBase, Store {
     });
   }
 
-  late final _$streakAtom = Atom(name: 'ProfileControllerBase.streak', context: context);
+  late final _$streakAtom = Atom(
+    name: 'ProfileControllerBase.streak',
+    context: context,
+  );
 
   @override
   int? get streak {
@@ -89,7 +107,10 @@ mixin _$ProfileController on ProfileControllerBase, Store {
     });
   }
 
-  late final _$sessionEndedAtom = Atom(name: 'ProfileControllerBase.sessionEnded', context: context);
+  late final _$sessionEndedAtom = Atom(
+    name: 'ProfileControllerBase.sessionEnded',
+    context: context,
+  );
 
   @override
   bool get sessionEnded {
@@ -104,14 +125,20 @@ mixin _$ProfileController on ProfileControllerBase, Store {
     });
   }
 
-  late final _$loadAsyncAction = AsyncAction('ProfileControllerBase.load', context: context);
+  late final _$loadAsyncAction = AsyncAction(
+    'ProfileControllerBase.load',
+    context: context,
+  );
 
   @override
   Future<void> load() {
     return _$loadAsyncAction.run(() => super.load());
   }
 
-  late final _$logoutAsyncAction = AsyncAction('ProfileControllerBase.logout', context: context);
+  late final _$logoutAsyncAction = AsyncAction(
+    'ProfileControllerBase.logout',
+    context: context,
+  );
 
   @override
   Future<void> logout() {
