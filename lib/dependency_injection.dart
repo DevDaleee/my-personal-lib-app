@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_personal_lib_app/controllers/auth_controller.dart';
+import 'package:my_personal_lib_app/controllers/book_detail_controller.dart';
 import 'package:my_personal_lib_app/controllers/library_controller.dart';
 import 'package:my_personal_lib_app/controllers/new_book_controller.dart';
 import 'package:my_personal_lib_app/controllers/profile_controller.dart';
@@ -26,4 +27,6 @@ void setupLocator() {
   sl.registerLazySingleton<StatsController>(() => StatsController());
   // Factory: formulário novo a cada abertura da tela.
   sl.registerFactory<NewBookController>(() => NewBookController());
+  // Factory: cada abertura do Detalhe tem o seu livro.
+  sl.registerFactory<BookDetailController>(() => BookDetailController());
 }
