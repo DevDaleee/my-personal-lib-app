@@ -130,6 +130,35 @@ void main() {
     );
   });
 
+  testWidgets('tela pequena, rolada até o fim: campos fora da tela também são validados', (tester) async {
+    // Regressão: com ListView, os campos fora da tela não entravam no Form.validate().
+    await tester.pumpWidget(_app());
+    await tester.tap(find.text('HOME'));
+    await tester.pumpAndSettle();
+    await tester.enterText(_field(_title), 'Torto Arado');
+    // Tira o foco: o campo focado puxaria a rolagem de volta para ele.
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump();
+
+    // Rola até o fim, como a pessoa faria (os primeiros campos saem da tela).
+    final page = find.descendant(of: find.byType(SingleChildScrollView), matching: find.byType(Scrollable)).first;
+    final position = tester.state<ScrollableState>(page).position;
+    position.jumpTo(position.maxScrollExtent);
+    await tester.pumpAndSettle();
+    expect(tester.getTopLeft(find.text('Título *')).dy, lessThan(0), reason: 'o título precisa estar fora da tela');
+    await tapSave(tester);
+
+    verifyNever(
+      () => services.createBook(
+        title: any(named: 'title'),
+        author: any(named: 'author'),
+        totalPages: any(named: 'totalPages'),
+        owned: any(named: 'owned'),
+      ),
+    );
+    expect(find.text('Informe o autor'), findsOneWidget);
+  });
+
   testWidgets('total de páginas 0 é inválido e o "Inválido" some ao corrigir', (tester) async {
     await openPage(tester);
     await fillRequired(tester);
@@ -143,6 +172,14 @@ void main() {
     await tester.pump();
 
     expect(find.text('Inválido'), findsNothing);
+    expect(find.text('O total de páginas deve ser maior que 0'), findsNothing, reason: 'a mensagem some junto com o "Inválido"');
+
+    // Apagar de novo volta o erro na hora (depois do primeiro "Salvar").
+    await tester.enterText(_field(_pages), '');
+    await tester.pump();
+
+    expect(find.text('Inválido'), findsOneWidget);
+    expect(find.text('O total de páginas deve ser maior que 0'), findsOneWidget);
   });
 
   testWidgets('URL da capa sem http(s): mostra o erro', (tester) async {

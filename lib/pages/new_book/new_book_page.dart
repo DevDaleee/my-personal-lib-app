@@ -36,6 +36,10 @@ class _NewBookPageState extends State<NewBookPage> with ValidationMixin {
   /// Campos com erro na última validação: pintam o rótulo e mostram "Inválido".
   final _invalid = <_Field>{};
 
+  /// Depois da primeira tentativa de salvar, os campos se validam a cada
+  /// digitação (a mensagem embaixo e o "Inválido" andam juntos).
+  bool _submitted = false;
+
   // Medidas do Figma (px).
   static const double _maxWidth = 600;
   static const EdgeInsets _padding = EdgeInsets.fromLTRB(16, 8, 16, 40);
@@ -78,10 +82,12 @@ class _NewBookPageState extends State<NewBookPage> with ValidationMixin {
     return valid ? null : 'Informe um endereço que comece com http:// ou https://';
   }
 
-  /// Ao digitar num campo com erro, tira o "Inválido" assim que ele fica certo.
+  /// Depois do primeiro "Salvar", mantém o "Inválido" igual à mensagem do campo.
   void _revalidate(_Field field) {
-    if (!_invalid.contains(field)) return;
-    if (_validate(field) == null) setState(() => _invalid.remove(field));
+    if (!_submitted) return;
+    final invalid = _validate(field) != null;
+    if (invalid == _invalid.contains(field)) return;
+    setState(() => invalid ? _invalid.add(field) : _invalid.remove(field));
   }
 
   /// Volta para a tela anterior; aberta direto pela URL (web), vai para a Home.
@@ -90,6 +96,7 @@ class _NewBookPageState extends State<NewBookPage> with ValidationMixin {
   Future<void> _save() async {
     final isValid = _formKey.currentState!.validate();
     setState(() {
+      _submitted = true;
       _invalid
         ..clear()
         ..addAll(_Field.values.where((field) => _validate(field) != null));
@@ -140,9 +147,14 @@ class _NewBookPageState extends State<NewBookPage> with ValidationMixin {
           constraints: const BoxConstraints(maxWidth: _maxWidth),
           child: Form(
             key: _formKey,
-            child: ListView(
+            autovalidateMode: _submitted ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+            // SingleChildScrollView (e não ListView): o ListView desmonta os campos
+            // fora da tela, e o Form.validate() só valida os campos montados.
+            child: SingleChildScrollView(
               padding: _padding,
-              children: [
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
                 const _Header(),
                 const SizedBox(height: _headerToForm),
 
@@ -275,7 +287,8 @@ class _NewBookPageState extends State<NewBookPage> with ValidationMixin {
                 const SizedBox(height: _actionsToQuote),
 
                 const _Quote(),
-              ],
+                ],
+              ),
             ),
           ),
         ),
