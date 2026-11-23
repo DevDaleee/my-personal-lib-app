@@ -77,6 +77,56 @@ void main() {
     expect(result, {'status_code': null, 'data': null, 'error': ApiErrors.connectionError});
   });
 
+  group('getBook', () {
+    test('200: chama GET /books/{id} e devolve o livro em data', () async {
+      stubGet(() async => _response(200, {'id': 'b-1', 'title': 'Torto Arado'}));
+
+      final result = await service.getBook('b-1');
+
+      expect(verify(() => dio.get<dynamic>(captureAny())).captured.single, endsWith('/books/b-1'));
+      expect(result, {
+        'status_code': 200,
+        'data': {'id': 'b-1', 'title': 'Torto Arado'},
+        'error': null,
+      });
+    });
+
+    test('404: devolve a mensagem do campo "error" da API', () async {
+      stubGet(() => Future.error(_badResponse(404, {'error': 'Livro não encontrado'})));
+
+      final result = await service.getBook('b-x');
+
+      expect(result, {'status_code': 404, 'data': null, 'error': 'Livro não encontrado'});
+    });
+  });
+
+  group('updateProgress', () {
+    void stubPatch(Future<Response<dynamic>> Function() answer) {
+      when(() => dio.patch<dynamic>(any(), data: any(named: 'data'))).thenAnswer((_) => answer());
+    }
+
+    test('200: chama PATCH /books/{id}/progress só com current_page', () async {
+      stubPatch(() async => _response(200, {'id': 'b-1', 'current_page': 41, 'status': 'reading'}));
+
+      final result = await service.updateProgress('b-1', 41);
+
+      final captured = verify(() => dio.patch<dynamic>(captureAny(), data: captureAny(named: 'data'))).captured;
+      expect(captured[0], endsWith('/books/b-1/progress'));
+      expect(captured[1], {'current_page': 41});
+      expect(result['status_code'], 200);
+      expect(result['data'], {'id': 'b-1', 'current_page': 41, 'status': 'reading'});
+      expect(result['error'], isNull);
+    });
+
+    test('400: devolve a mensagem do campo "error" da API', () async {
+      stubPatch(() => Future.error(_badResponse(400, {'error': 'Página fora do intervalo'})));
+
+      final result = await service.updateProgress('b-1', 999);
+
+      expect(result, {'status_code': 400, 'data': null, 'error': 'Página fora do intervalo'});
+    });
+  });
+
   group('createBook', () {
     void stubPost(Future<Response<dynamic>> Function() answer) {
       when(() => dio.post<dynamic>(any(), data: any(named: 'data'))).thenAnswer((_) => answer());

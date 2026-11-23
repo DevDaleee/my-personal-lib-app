@@ -40,6 +40,21 @@ class BookServices {
     return apiRequest('BookServices/createBook', () => api.dio.post("${ApiConstants.basePath}/books", data: body), successStatus: 201);
   }
 
+  /// `GET /books/{id}`: um livro do usuário (404 se não existe ou é de outro usuário).
+  Future<Map<String, dynamic>> getBook(String id) {
+    return apiRequest('BookServices/getBook', () => api.dio.get("${ApiConstants.basePath}/books/${Uri.encodeComponent(id)}"));
+  }
+
+  /// `PATCH /books/{id}/progress`: atualiza a página atual e devolve o livro
+  /// atualizado (o status muda sozinho no back-end). 400 se a página estiver
+  /// fora de 0..total_pages.
+  Future<Map<String, dynamic>> updateProgress(String id, int currentPage) {
+    return apiRequest(
+      'BookServices/updateProgress',
+      () => api.dio.patch("${ApiConstants.basePath}/books/${Uri.encodeComponent(id)}/progress", data: {"current_page": currentPage}),
+    );
+  }
+
   // Texto vazio ou só com espaços vira null.
   String? _orNull(String? value) {
     final trimmed = value?.trim();
