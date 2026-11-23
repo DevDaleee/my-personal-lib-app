@@ -35,6 +35,10 @@ Widget _app() {
         builder: (_, _) => const Scaffold(body: Text('PERFIL')),
       ),
       GoRoute(
+        path: '/books/new',
+        builder: (_, _) => const Scaffold(body: Text('NOVO LIVRO')),
+      ),
+      GoRoute(
         path: '/stats',
         builder: (_, _) => const Scaffold(body: Text('ESTATÍSTICAS')),
       ),
@@ -142,6 +146,15 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('PERFIL'), findsOneWidget);
+  });
+
+  testWidgets('o botão "Novo livro" abre o formulário', (tester) async {
+    await openHome(tester);
+
+    await tester.tap(find.text('Novo livro'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('NOVO LIVRO'), findsOneWidget);
   });
 
   testWidgets('enquanto busca: mostra o carregando no lugar da estante vazia', (tester) async {

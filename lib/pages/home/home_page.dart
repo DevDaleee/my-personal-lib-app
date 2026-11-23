@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_personal_lib_app/controllers/library_controller.dart';
 import 'package:my_personal_lib_app/models/book.dart';
 import 'package:my_personal_lib_app/pages/components/app_navigation_bar.dart';
@@ -97,8 +98,8 @@ class _Header extends StatelessWidget {
           ),
         ),
         ElevatedButton.icon(
-          // TODO: abrir a tela Novo livro quando ela existir.
-          onPressed: () {},
+          // A lista é recarregada pelo NewBookController depois de salvar.
+          onPressed: () => context.push('/books/new'),
           icon: const Icon(Icons.add, size: 12),
           label: const Text('Novo livro'),
           style: ElevatedButton.styleFrom(minimumSize: const Size(0, 32), padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), textStyle: textTheme.labelMedium),

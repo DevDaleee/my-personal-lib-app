@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_personal_lib_app/data/shared.dart';
 import 'package:my_personal_lib_app/pages/home/home_page.dart';
 import 'package:my_personal_lib_app/pages/login/login_page.dart';
+import 'package:my_personal_lib_app/pages/new_book/new_book_page.dart';
 import 'package:my_personal_lib_app/pages/profile/profile_page.dart';
 import 'package:my_personal_lib_app/pages/register/register_page.dart';
 import 'package:my_personal_lib_app/pages/stats/stats_page.dart';
@@ -27,6 +28,7 @@ final router = GoRouter(
     GoRoute(path: '/', builder: (context, state) => const LoginPage()),
     GoRoute(path: '/register', builder: (context, state) => const RegisterPage()),
     GoRoute(path: "/home", builder: (context, state) => const HomePage()),
+    GoRoute(path: '/books/new', builder: (context, state) => const NewBookPage()),
     GoRoute(path: '/profile', builder: (context, state) => const ProfilePage()),
     GoRoute(path: '/stats', builder: (context, state) => const StatsPage()),
   ],
