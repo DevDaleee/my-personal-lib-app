@@ -76,4 +76,70 @@ void main() {
 
     expect(result, {'status_code': null, 'data': null, 'error': ApiErrors.connectionError});
   });
+
+  group('createBook', () {
+    void stubPost(Future<Response<dynamic>> Function() answer) {
+      when(() => dio.post<dynamic>(any(), data: any(named: 'data'))).thenAnswer((_) => answer());
+    }
+
+    List<dynamic> capturedPost() => verify(() => dio.post<dynamic>(captureAny(), data: captureAny(named: 'data'))).captured;
+
+    test('201: chama POST /books com todos os campos e devolve o livro em data', () async {
+      stubPost(() async => _response(201, {'id': 'b-1', 'title': 'Torto Arado'}));
+
+      final result = await service.createBook(
+        title: '  Torto Arado ',
+        author: 'Itamar Vieira Junior',
+        totalPages: 264,
+        owned: true,
+        isbn: '978-65-5921-000-0',
+        rating: 5,
+        notes: 'Releitura',
+        coverUrl: 'https://exemplo.com/capa.jpg',
+      );
+
+      final captured = capturedPost();
+      expect(captured[0], endsWith('/books'));
+      expect(captured[1], {
+        'title': 'Torto Arado',
+        'author': 'Itamar Vieira Junior',
+        'total_pages': 264,
+        'owned': true,
+        'isbn': '978-65-5921-000-0',
+        'rating': 5,
+        'notes': 'Releitura',
+        'cover_url': 'https://exemplo.com/capa.jpg',
+      });
+      expect(result, {
+        'status_code': 201,
+        'data': {'id': 'b-1', 'title': 'Torto Arado'},
+        'error': null,
+      });
+    });
+
+    test('opcionais vazios ou só com espaços vão como null', () async {
+      stubPost(() async => _response(201, {'id': 'b-1'}));
+
+      await service.createBook(title: 'Torto Arado', author: 'Itamar', totalPages: 264, owned: false, isbn: '', notes: '   ');
+
+      expect(capturedPost()[1], {
+        'title': 'Torto Arado',
+        'author': 'Itamar',
+        'total_pages': 264,
+        'owned': false,
+        'isbn': null,
+        'rating': null,
+        'notes': null,
+        'cover_url': null,
+      });
+    });
+
+    test('400: devolve a mensagem do campo "error" da API', () async {
+      stubPost(() => Future.error(_badResponse(400, {'error': 'Total de páginas inválido'})));
+
+      final result = await service.createBook(title: 'Torto Arado', author: 'Itamar', totalPages: 0, owned: false);
+
+      expect(result, {'status_code': 400, 'data': null, 'error': 'Total de páginas inválido'});
+    });
+  });
 }
